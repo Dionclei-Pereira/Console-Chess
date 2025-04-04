@@ -1,12 +1,12 @@
-﻿
-namespace Console_Chess.Board {
+﻿namespace Console_Chess.Board {
     internal enum Color {
-        RED,
-        GREEN,
-        BLUE,
-        BLACK,
-        WHITE,
-        YELLOW,
-        ORANGE
+        Red,
+        Green,
+        Blue,
+        Black,
+        White,
+        Yellow,
+        Orange,
+        Magenta
     }
 }
