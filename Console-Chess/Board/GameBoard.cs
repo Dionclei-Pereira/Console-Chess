@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Console_Chess.Board {
-    internal class Board {
+    internal class GameBoard {
         public int X { get; set; }
         public int Y { get; set; }
         private Piece[,] Pieces { get; set; }
 
-        public Board(int x, int y) {
+        public GameBoard(int x, int y) {
             X = x;
             Y = y;
             Pieces = new Piece[X, Y];
         }
+
+        public Piece GetPiece(int x, int y) {
+            return Pieces[x, y];
+        }
+
     }
 }
