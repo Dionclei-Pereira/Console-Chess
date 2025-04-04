@@ -1,4 +1,5 @@
-﻿
+﻿using Console_Chess.Board.Exceptions;
+
 namespace Console_Chess.Board {
     internal class GameBoard {
         public int X { get; set; }
@@ -18,6 +19,25 @@ namespace Console_Chess.Board {
         public void PutPiece(Piece piece, Position pos) {
             Pieces[pos.X, pos.Y] = piece;
             piece.Position = pos;
+        }
+
+        public bool PositionIsValid(Position pos) {
+            if (pos.X < 0 || pos.X >= X || pos.Y < 0 || pos.Y >= Y) {
+                return false;
+            }
+            return true;
+        }
+
+        public bool ExistPieceAt(Position pos) {
+            ValidatePosition(pos);
+            if (Pieces[pos.X, pos.Y] == null) return false;
+            return true;
+        }
+
+        public void ValidatePosition(Position pos) {
+            if (!PositionIsValid(pos)) {
+                throw new BoardException("Invalid position");
+            }
         }
     }
 }
