@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Console_Chess.Board;
+using System;
 
 namespace ConsoleChess {
     internal class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
+            Position p = new Position(1, 5);
+            Console.WriteLine(p);
         }
     }
 }
