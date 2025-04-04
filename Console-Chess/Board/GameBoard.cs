@@ -15,5 +15,9 @@ namespace Console_Chess.Board {
             return Pieces[x, y];
         }
 
+        public void PutPiece(Piece piece, Position pos) {
+            Pieces[pos.X, pos.Y] = piece;
+            piece.Position = pos;
+        }
     }
 }
