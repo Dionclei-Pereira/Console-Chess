@@ -17,6 +17,7 @@ namespace Console_Chess.Board {
         }
 
         public void PutPiece(Piece piece, Position pos) {
+            if (ExistPieceAt(pos)) throw new BoardException("There is a piece at this position");
             Pieces[pos.X, pos.Y] = piece;
             piece.Position = pos;
         }
