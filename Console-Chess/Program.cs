@@ -17,6 +17,10 @@ namespace Console_Chess {
                     Console.Write("Origin: ");
                     Position origin = Screen.ReadPosition();
 
+                    Console.Clear();
+                    bool[,] moves = game.Board.GetPiece(origin).GetMoves();
+                    Screen.PrintBoard(game.Board, moves);
+                    Console.WriteLine();
                     Console.Write("Target: ");
                     Position target = Screen.ReadPosition();
 

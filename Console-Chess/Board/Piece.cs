@@ -16,5 +16,9 @@ namespace Console_Chess.Board {
         public void IncreaseMovements() {
             MovementsAmount++;
         }
+
+        public abstract override string ToString();
+
+        public abstract bool[,] GetMoves();
     }
 }

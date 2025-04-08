@@ -1,4 +1,5 @@
 ﻿using Console_Chess.Board;
+using Console_Chess.Chess.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace Console_Chess.Chess {
         private void PutPieces() {
             King k = new King(Board, Color.Magenta);
             Board.PutPiece(k, new Position(1, 5));
+            Rook rook = new Rook(Board, Color.Magenta);
+            Board.PutPiece(rook, new Position(1, 7));
         }
     }
 }
