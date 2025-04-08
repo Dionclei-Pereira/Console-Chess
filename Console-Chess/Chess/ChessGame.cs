@@ -1,4 +1,5 @@
 ﻿using Console_Chess.Board;
+using Console_Chess.Board.Exceptions;
 using Console_Chess.Chess.Pieces;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,32 @@ namespace Console_Chess.Chess {
             Move(origin, target);
         }
 
+        public void ValidateOriginPos(Position pos) {
+            if (!Board.PositionIsValid(pos)) {
+                throw new BoardException("Invalid position!");
+            }
+            if (Board.GetPiece(pos) == null) {
+                throw new BoardException("This square is empty.");
+            }
+
+            if (Playing != Board.GetPiece(pos).Color) {
+                throw new BoardException("This piece is not yours");
+            }
+
+            if (!Board.GetPiece(pos).ExistMovements()) {
+                throw new BoardException("This piece is blocked");
+            }
+        }
+        public void ValidateTargetPos(Position origin, Position target) {
+            if (!Board.PositionIsValid(target)) {
+                throw new BoardException("Invalid position!");
+            }
+
+            if (!Board.GetPiece(origin).CanMoveTo(target)) {
+                throw new BoardException("Target position is invalid");
+            }
+        }
+
         public void Move(Position origin, Position target) {
             Piece p = Board.RemovePiece(origin);
             p.IncreaseMovements();
@@ -41,9 +68,12 @@ namespace Console_Chess.Chess {
 
         private void PutPieces() {
             King k = new King(Board, Color.Magenta);
-            Board.PutPiece(k, new Position(1, 5));
-            Rook rook = new Rook(Board, Color.Magenta);
-            Board.PutPiece(rook, new Position(1, 7));
+            Board.PutPiece(k, new Position(0, 5));
+            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(0, 6));
+            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(0, 4));
+            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(1, 6));
+            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(1, 5));
+            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(1, 4));
         }
     }
 }

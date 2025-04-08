@@ -1,4 +1,5 @@
 ﻿using Console_Chess.Board;
+using Console_Chess.Board.Exceptions;
 using Console_Chess.Chess;
 using System.Drawing;
 
@@ -32,11 +33,15 @@ namespace Console_Chess {
             Console.Write("  A B C D E F G H");
         }
 
-        public static Position ReadPosition() {
+        public static Position ReadPosition(GameBoard board) {
             string s = Console.ReadLine();
-            char ch = s[0];
-            int i = int.Parse(s[1] + "");
-            return new ChessPosition(ch, i).ToPosition();
+            Position pos = null;
+            if (s.Length >= 2) {
+                char ch = s[0];
+                int.TryParse(s[1] + "", out int i);
+                pos = new ChessPosition(ch, i).ToPosition();
+            }
+            return board.PositionIsValid(pos) ? pos : throw new BoardException("Invalid Position");
         }
 
         private static void PrintPiece(Piece p) {

@@ -13,6 +13,20 @@ namespace Console_Chess.Board {
             MovementsAmount = 0;
         }
 
+        public bool CanMoveTo(Position pos) {
+            return GetMoves()[pos.X, pos.Y];
+        }
+        public bool ExistMovements() {
+            bool[,] movements = GetMoves();
+            for (int i = 0; i < Board.X; i++) {
+                for (int j = 0; j < Board.Y; j++) {
+                    if (movements[i, j]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public void IncreaseMovements() {
             MovementsAmount++;
         }

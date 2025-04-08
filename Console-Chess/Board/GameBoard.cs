@@ -27,6 +27,9 @@ namespace Console_Chess.Board {
         }
 
         public bool PositionIsValid(Position pos) {
+            if(pos == null) {
+                return false;
+            }
             if (pos.X < 0 || pos.X >= X || pos.Y < 0 || pos.Y >= Y) {
                 return false;
             }

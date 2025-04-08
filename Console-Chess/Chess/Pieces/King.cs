@@ -15,28 +15,44 @@ namespace Console_Chess.Chess.Pieces {
             Position pos = new Position(0, 0);
             
             pos.SetPos(Position.X - 1, Position.Y);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             pos.SetPos(Position.X - 1, Position.Y + 1);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             pos.SetPos(Position.X, Position.Y + 1);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
-             
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
+
             pos.SetPos(Position.X + 1, Position.Y + 1);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             pos.SetPos(Position.X + 1, Position.Y);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             pos.SetPos(Position.X + 1, Position.Y - 1);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             pos.SetPos(Position.X - 1, Position.Y - 1);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             pos.SetPos(Position.X, Position.Y - 1);
-            m[pos.X, pos.Y] = Board.PositionIsValid(pos) && canMove(pos);
+            if (Board.PositionIsValid(pos)) {
+                m[pos.X, pos.Y] = canMove(pos);
+            }
 
             return m;
         }

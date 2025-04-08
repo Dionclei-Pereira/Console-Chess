@@ -1,4 +1,5 @@
 ﻿using Console_Chess.Board;
+using Console_Chess.Board.Exceptions;
 using Console_Chess.Chess;
 
 namespace Console_Chess {
@@ -9,27 +10,33 @@ namespace Console_Chess {
 
                 ChessGame game = new ChessGame(Color.Magenta, Color.Cyan);
                 while(!game.ended) {
+                    try {
+                        Console.Clear();
+                        Screen.PrintBoard(game.Board);
+                        Console.WriteLine();
+                        Console.WriteLine();
 
-                    Console.Clear();
-                    Screen.PrintBoard(game.Board);
-                    Console.WriteLine();
-                    Console.WriteLine();
+                        Console.WriteLine("Turn: " + game.Turn);
+                        Console.WriteLine("Current Player: " + game.Playing);
 
-                    Console.WriteLine("Turn: " + game.Turn);
-                    Console.WriteLine("Current Player: " + game.Playing);
+                        Console.WriteLine();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.ReadPosition(game.Board);
+                        game.ValidateOriginPos(origin);
 
-                    Console.WriteLine();
-                    Console.Write("Origin: ");
-                    Position origin = Screen.ReadPosition();
+                        Console.Clear();
+                        bool[,] moves = game.Board.GetPiece(origin).GetMoves();
+                        Screen.PrintBoard(game.Board, moves);
+                        Console.WriteLine();
+                        Console.Write("Target: ");
+                        Position target = Screen.ReadPosition(game.Board);
+                        game.ValidateTargetPos(origin, target);
 
-                    Console.Clear();
-                    bool[,] moves = game.Board.GetPiece(origin).GetMoves();
-                    Screen.PrintBoard(game.Board, moves);
-                    Console.WriteLine();
-                    Console.Write("Target: ");
-                    Position target = Screen.ReadPosition();
-
-                    game.ExecuteMovement(origin, target);
+                        game.ExecuteMovement(origin, target);
+                    } catch (BoardException e) {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
 
                 }
             } catch (Exception ex) {
