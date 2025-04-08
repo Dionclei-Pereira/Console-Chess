@@ -11,15 +11,17 @@ namespace Console_Chess.Chess {
         public GameBoard Board { get; protected set; }
         private int Turn;
         private Color Player;
+        public bool ended { get; protected set; }
 
         public ChessGame(Color color) {
             Turn = 1;
             Board = new GameBoard(8, 8);
             Player = color;
             PutPieces();
+            ended = false;
         }
 
-        public void move(Position origin, Position target) {
+        public void Move(Position origin, Position target) {
             Piece p = Board.RemovePiece(origin);
             p.IncreaseMovements();
             Piece targetPiece = Board.RemovePiece(target);

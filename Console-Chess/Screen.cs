@@ -1,4 +1,5 @@
 ﻿using Console_Chess.Board;
+using Console_Chess.Chess;
 using System.Drawing;
 
 namespace Console_Chess {
@@ -17,6 +18,13 @@ namespace Console_Chess {
                 Console.WriteLine();
             }
             Console.Write("  A B C D E F G H");
+        }
+
+        public static Position ReadPosition() {
+            string s = Console.ReadLine();
+            char ch = s[0];
+            int i = int.Parse(s[1] + "");
+            return new ChessPosition(ch, i).ToPosition();
         }
 
         private static void PrintPiece(Piece p) {

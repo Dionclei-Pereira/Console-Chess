@@ -5,12 +5,27 @@ namespace Console_Chess {
     internal class Program {
         static void Main(string[] args) {
 
-            Position p = new Position(1, 5);
+            try {
 
-            ChessGame game = new ChessGame(Color.Magenta);
+                ChessGame game = new ChessGame(Color.Magenta);
+                while(!game.ended) {
 
-            GameBoard board = new GameBoard(8, 8);
-            Screen.PrintBoard(game.Board);
+                    Console.Clear();
+                    Screen.PrintBoard(game.Board);
+                    Console.WriteLine();
+
+                    Console.Write("Origin: ");
+                    Position origin = Screen.ReadPosition();
+
+                    Console.Write("Target: ");
+                    Position target = Screen.ReadPosition();
+
+                    game.Move(origin, target);
+
+                }
+            } catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
 
         }
     }
