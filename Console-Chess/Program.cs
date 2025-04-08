@@ -6,10 +6,11 @@ namespace Console_Chess {
         static void Main(string[] args) {
 
             Position p = new Position(1, 5);
+
+            ChessGame game = new ChessGame(Color.Magenta);
+
             GameBoard board = new GameBoard(8, 8);
-            King k = new King(board, Color.Magenta);
-            board.PutPiece(k, new Position(1, 5));
-            Screen.PrintBoard(board);
+            Screen.PrintBoard(game.Board);
 
         }
     }

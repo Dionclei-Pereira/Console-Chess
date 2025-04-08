@@ -16,6 +16,10 @@ namespace Console_Chess.Board {
             return Pieces[x, y];
         }
 
+        public Piece GetPiece(Position pos) {
+            return Pieces[pos.X, pos.Y];
+        }
+
         public void PutPiece(Piece piece, Position pos) {
             if (ExistPieceAt(pos)) throw new BoardException("There is a piece at this position");
             Pieces[pos.X, pos.Y] = piece;
@@ -27,6 +31,16 @@ namespace Console_Chess.Board {
                 return false;
             }
             return true;
+        }
+
+        public Piece RemovePiece(Position pos) {
+            if(GetPiece(pos) == null) {
+                return null;
+            }
+            Piece aux = GetPiece(pos);
+            aux.Position = null;
+            Pieces[pos.X, pos.Y] = null;
+            return aux;
         }
 
         public bool ExistPieceAt(Position pos) {

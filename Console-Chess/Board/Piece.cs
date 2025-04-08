@@ -13,5 +13,8 @@ namespace Console_Chess.Board {
             MovementsAmount = 0;
         }
 
+        public void IncreaseMovements() {
+            MovementsAmount++;
+        }
     }
 }

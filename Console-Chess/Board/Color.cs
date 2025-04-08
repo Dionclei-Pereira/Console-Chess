@@ -7,6 +7,7 @@
         White,
         Yellow,
         Orange,
-        Magenta
+        Magenta,
+        Cyan
     }
 }
