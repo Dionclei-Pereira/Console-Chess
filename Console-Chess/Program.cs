@@ -7,13 +7,18 @@ namespace Console_Chess {
 
             try {
 
-                ChessGame game = new ChessGame(Color.Magenta);
+                ChessGame game = new ChessGame(Color.Magenta, Color.Cyan);
                 while(!game.ended) {
 
                     Console.Clear();
                     Screen.PrintBoard(game.Board);
                     Console.WriteLine();
+                    Console.WriteLine();
 
+                    Console.WriteLine("Turn: " + game.Turn);
+                    Console.WriteLine("Current Player: " + game.Playing);
+
+                    Console.WriteLine();
                     Console.Write("Origin: ");
                     Position origin = Screen.ReadPosition();
 
@@ -24,7 +29,7 @@ namespace Console_Chess {
                     Console.Write("Target: ");
                     Position target = Screen.ReadPosition();
 
-                    game.Move(origin, target);
+                    game.ExecuteMovement(origin, target);
 
                 }
             } catch (Exception ex) {

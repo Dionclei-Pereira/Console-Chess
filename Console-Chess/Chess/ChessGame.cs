@@ -10,16 +10,26 @@ namespace Console_Chess.Chess {
     internal class ChessGame {
 
         public GameBoard Board { get; protected set; }
-        private int Turn;
-        private Color Player;
+        public int Turn { get; protected set; }
+        private Color PlayerOne;
+        private Color PlayerTwo;
+        public Color Playing { get; protected set; }
         public bool ended { get; protected set; }
 
-        public ChessGame(Color color) {
+        public ChessGame(Color colorOne, Color colorTwo) {
             Turn = 1;
             Board = new GameBoard(8, 8);
-            Player = color;
+            Playing = colorOne;
+            PlayerOne = colorOne;
+            PlayerTwo = colorTwo;
             PutPieces();
             ended = false;
+        }
+
+        public void ExecuteMovement(Position origin, Position target) {
+            Turn++;
+            Playing = Playing == PlayerOne ? PlayerTwo : PlayerOne;
+            Move(origin, target);
         }
 
         public void Move(Position origin, Position target) {
