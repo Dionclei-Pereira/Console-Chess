@@ -49,6 +49,10 @@ namespace Console_Chess.Chess {
             } else {
                 IsGameInCheck = false;
             }
+
+            if (TestCheckMate(Playing)) {
+                Ended = true;
+            }
         }
 
         public void Unmove(Position origin, Position target, Piece piece) {
@@ -116,7 +120,7 @@ namespace Console_Chess.Chess {
             return null;
         }
 
-        private Color GetEnemyColor(Color color) {
+        public Color GetEnemyColor(Color color) {
             return color == PlayerOne ? PlayerTwo : PlayerOne;
         }
 
@@ -129,6 +133,26 @@ namespace Console_Chess.Chess {
                 }
             }
             return false;
+        }
+
+        public bool TestCheckMate(Color color) {
+            if (!IsInCheck(color)) return false;
+            foreach (Piece p in GetPieces(color)) {
+                bool[,] m = p.GetMoves();
+                Position origin = p.Position;
+                for (int i = 0; i < Board.X; i++) {
+                    for (int j = 0; j < Board.Y; j++) {
+                        if (m[i, j]) {
+                            Position target = new Position(i, j);
+                            Piece targetPiece = Move(origin, target);
+                            bool isInCheck = IsInCheck(color);
+                            Unmove(origin, target, targetPiece);
+                            if (!isInCheck) return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void PutNewPiece(ChessPosition position, Piece piece) {

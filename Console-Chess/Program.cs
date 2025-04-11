@@ -29,8 +29,10 @@ namespace Console_Chess {
                         Console.WriteLine(e.Message);
                         Console.ReadLine();
                     }
-
                 }
+                Console.Clear();
+                Screen.PrintGame(game);
+
             } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }

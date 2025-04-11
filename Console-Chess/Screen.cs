@@ -13,10 +13,15 @@ namespace Console_Chess {
             PrintCapturedPieces(game);
             Console.WriteLine();
             Console.WriteLine("Turn: " + game.Turn);
-            Console.WriteLine("Current Player: " + game.Playing);
-            Console.WriteLine();
-            if (game.IsGameInCheck) {
-                Console.WriteLine("Check!");
+            if (!game.Ended) {
+                Console.WriteLine("Current Player: " + game.Playing);
+                Console.WriteLine();
+                if (game.IsGameInCheck) {
+                    Console.WriteLine("Check!");
+                }
+            } else {
+                Console.WriteLine("CHECK MATE");
+                Console.WriteLine("WINNER: " + game.GetEnemyColor(game.Playing));
             }
             Console.WriteLine();
         }
