@@ -12,10 +12,13 @@ namespace Console_Chess.Chess {
 
         public GameBoard Board { get; protected set; }
         public int Turn { get; protected set; }
-        private Color PlayerOne;
-        private Color PlayerTwo;
+        public Color PlayerOne { get; protected set; }
+        public Color PlayerTwo { get; protected set; }
         public Color Playing { get; protected set; }
-        public bool ended { get; protected set; }
+        public bool Ended { get; protected set; }
+        private HashSet<Piece> Pieces;
+        private HashSet<Piece> Captured;
+
 
         public ChessGame(Color colorOne, Color colorTwo) {
             Turn = 1;
@@ -23,8 +26,10 @@ namespace Console_Chess.Chess {
             Playing = colorOne;
             PlayerOne = colorOne;
             PlayerTwo = colorTwo;
+            Pieces = new HashSet<Piece>();
+            Captured = new HashSet<Piece>();
             PutPieces();
-            ended = false;
+            Ended = false;
         }
 
         public void ExecuteMovement(Position origin, Position target) {
@@ -59,21 +64,33 @@ namespace Console_Chess.Chess {
             }
         }
 
+        public HashSet<Piece> GetPieces(Color color) {
+            return Pieces.Where(p => p.Color == color && !Captured.Contains(p)).ToHashSet();
+        }
+
+        public HashSet<Piece> GetCapturedPieces(Color color) {
+            return Captured.Where(p => p.Color == color).ToHashSet();
+        }
+
         public void Move(Position origin, Position target) {
             Piece p = Board.RemovePiece(origin);
+            if (p != null) {
+                Captured.Add(p);
+            }
             p.IncreaseMovements();
             Piece targetPiece = Board.RemovePiece(target);
             Board.PutPiece(p, target);
         }
 
+        public void PutNewPiece(ChessPosition position, Piece piece) {
+            Board.PutPiece(piece, position.ToPosition());
+            Pieces.Add(piece);
+        }
         private void PutPieces() {
-            King k = new King(Board, Color.Magenta);
-            Board.PutPiece(k, new Position(0, 5));
-            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(0, 6));
-            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(0, 4));
-            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(1, 6));
-            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(1, 5));
-            Board.PutPiece(new Rook(Board, Color.Magenta), new Position(1, 4));
+            PutNewPiece(new ChessPosition('a', 8), new Rook(Board, PlayerTwo));
+            PutNewPiece(new ChessPosition('a', 1), new Rook(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('h', 8), new Rook(Board, PlayerTwo));
+            PutNewPiece(new ChessPosition('h', 1), new Rook(Board, PlayerOne));
         }
     }
 }

@@ -9,17 +9,9 @@ namespace Console_Chess {
             try {
 
                 ChessGame game = new ChessGame(Color.Magenta, Color.Cyan);
-                while(!game.ended) {
+                while(!game.Ended) {
                     try {
-                        Console.Clear();
-                        Screen.PrintBoard(game.Board);
-                        Console.WriteLine();
-                        Console.WriteLine();
-
-                        Console.WriteLine("Turn: " + game.Turn);
-                        Console.WriteLine("Current Player: " + game.Playing);
-
-                        Console.WriteLine();
+                        Screen.PrintGame(game);
                         Console.Write("Origin: ");
                         Position origin = Screen.ReadPosition(game.Board);
                         game.ValidateOriginPos(origin);

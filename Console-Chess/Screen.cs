@@ -6,6 +6,34 @@ using System.Drawing;
 namespace Console_Chess {
     internal class Screen {
 
+        public static void PrintGame(ChessGame game) {
+            Console.Clear();
+            PrintBoard(game.Board);
+            Console.WriteLine();
+            PrintCapturedPieces(game);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + game.Turn);
+            Console.WriteLine("Current Player: " + game.Playing);
+
+            Console.WriteLine();
+        }
+
+        private static void PrintCapturedPieces(ChessGame game) {
+            Console.WriteLine("Captured Pieces: ");
+            Console.Write(game.PlayerOne.ToString());
+            PrintPieces(game.GetCapturedPieces(game.PlayerOne));
+            Console.WriteLine();
+            Console.Write(game.PlayerTwo.ToString());
+            PrintPieces(game.GetCapturedPieces(game.PlayerTwo));
+            Console.WriteLine();
+        }
+
+        private static void PrintPieces(HashSet<Piece> pieces) {
+            Console.Write("[");
+            pieces.ToList().ForEach(p => Console.Write(p.ToString() + " "));
+            Console.Write("]");
+        }
+
         public static void PrintBoard(GameBoard board) {
             Console.BackgroundColor = ConsoleColor.Black;
             for (int i = 0; i < board.X; i++) {
