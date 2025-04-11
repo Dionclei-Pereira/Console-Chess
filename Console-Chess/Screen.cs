@@ -14,7 +14,10 @@ namespace Console_Chess {
             Console.WriteLine();
             Console.WriteLine("Turn: " + game.Turn);
             Console.WriteLine("Current Player: " + game.Playing);
-
+            Console.WriteLine();
+            if (game.IsGameInCheck) {
+                Console.WriteLine("Check!");
+            }
             Console.WriteLine();
         }
 

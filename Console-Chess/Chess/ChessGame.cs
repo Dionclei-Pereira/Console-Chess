@@ -16,8 +16,9 @@ namespace Console_Chess.Chess {
         public Color PlayerTwo { get; protected set; }
         public Color Playing { get; protected set; }
         public bool Ended { get; protected set; }
-        private HashSet<Piece> Pieces;
-        private HashSet<Piece> Captured;
+        private HashSet<Piece> Pieces { get; set; }
+        private HashSet<Piece> Captured { get; set; }
+        public bool IsGameInCheck { get; set; }
 
 
         public ChessGame(Color colorOne, Color colorTwo) {
@@ -33,9 +34,45 @@ namespace Console_Chess.Chess {
         }
 
         public void ExecuteMovement(Position origin, Position target) {
+            Piece p = Move(origin, target);
+
+            if (IsInCheck(Playing)) {
+                Unmove(origin, target, p);
+                throw new BoardException("You can not do this movement!");
+            }
+
             Turn++;
             Playing = Playing == PlayerOne ? PlayerTwo : PlayerOne;
-            Move(origin, target);
+
+            if (IsInCheck(Playing)) {
+                IsGameInCheck = true;
+            } else {
+                IsGameInCheck = false;
+            }
+        }
+
+        public void Unmove(Position origin, Position target, Piece piece) {
+            Piece p = Board.RemovePiece(target);
+            p.DecreaseMovements();
+            if (piece != null) {
+                Board.PutPiece(piece, target);
+                Captured.Remove(piece);
+            }
+            Board.PutPiece(p, origin);
+
+        }
+
+        public Piece Move(Position origin, Position target) {
+            Piece movingPiece = Board.RemovePiece(origin);
+            Piece targetPiece = Board.RemovePiece(target);
+
+            if (targetPiece != null) {
+                Captured.Add(targetPiece);
+            }
+
+            movingPiece.IncreaseMovements();
+            Board.PutPiece(movingPiece, target);
+            return targetPiece;
         }
 
         public void ValidateOriginPos(Position pos) {
@@ -71,24 +108,39 @@ namespace Console_Chess.Chess {
         public HashSet<Piece> GetCapturedPieces(Color color) {
             return Captured.Where(p => p.Color == color).ToHashSet();
         }
-
-        public void Move(Position origin, Position target) {
-            Piece p = Board.RemovePiece(origin);
-            if (p != null) {
-                Captured.Add(p);
+        
+        private Piece GetKing(Color color) {
+            foreach (var p in GetPieces(color)) {
+                if (p is King) return p;
             }
-            p.IncreaseMovements();
-            Piece targetPiece = Board.RemovePiece(target);
-            Board.PutPiece(p, target);
+            return null;
+        }
+
+        private Color GetEnemyColor(Color color) {
+            return color == PlayerOne ? PlayerTwo : PlayerOne;
+        }
+
+        public bool IsInCheck(Color color) {
+            Piece king = GetKing(color) ?? throw new BoardException("King not found");
+            foreach (Piece p in GetPieces(GetEnemyColor(color))) {
+                bool[,] moves = p.GetMoves();
+                if (moves[king.Position.X, king.Position.Y]) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void PutNewPiece(ChessPosition position, Piece piece) {
             Board.PutPiece(piece, position.ToPosition());
             Pieces.Add(piece);
         }
+
         private void PutPieces() {
             PutNewPiece(new ChessPosition('a', 8), new Rook(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('a', 1), new Rook(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('e', 1), new King(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('e', 8), new King(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('h', 8), new Rook(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('h', 1), new Rook(Board, PlayerOne));
         }
