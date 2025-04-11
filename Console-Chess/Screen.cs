@@ -6,6 +6,42 @@ using System.Drawing;
 namespace Console_Chess {
     internal class Screen {
 
+        public static void GetColors(out Board.Color? c1, out Board.Color? c2) {
+            Console.ForegroundColor = ConsoleColor.White;
+            HashSet<Board.Color> colors = new HashSet<Board.Color> { Board.Color.Yellow, Board.Color.White, Board.Color.Cyan, Board.Color.Red, Board.Color.Blue, Board.Color.Magenta, Board.Color.Green };
+            c1 = null;
+            c2 = null;
+            Console.WriteLine("PLAYER ONE");
+            TryParseColor(ref c1, ref colors);
+            Console.Clear();
+            Console.WriteLine("PLAYER TWO");
+            TryParseColor(ref c2, ref colors);
+        }
+
+        public static Board.Color? TryParseColor(ref Board.Color? color, ref HashSet<Board.Color> colors) {
+            while(color == null) {
+                try {
+                    Console.WriteLine("Please enter a color:");
+                    Console.Write("List of colors: [ ");
+                    foreach (Board.Color c in colors) {
+                        Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), c.ToString());
+                        Console.Write(c + " ");
+                    }
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("]");
+                    string? typed = Console.ReadLine();
+                    bool parsed = Enum.TryParse(typeof(Board.Color), typed, out var result);
+                    if (parsed) {
+                        color = (Board.Color?)result;
+                        colors.Remove((Board.Color)color);
+                    }
+                } catch (InvalidOperationException e) {
+                    Console.WriteLine("Invalid Color!");
+                }
+            }
+            return color;
+        }
+
         public static void PrintGame(ChessGame game) {
             Console.Clear();
             PrintBoard(game.Board);

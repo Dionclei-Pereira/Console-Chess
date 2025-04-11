@@ -7,8 +7,8 @@ namespace Console_Chess {
         static void Main(string[] args) {
 
             try {
-
-                ChessGame game = new ChessGame(Color.Magenta, Color.Cyan);
+                Screen.GetColors(out Color? c1, out Color? c2);
+                ChessGame game = new ChessGame((Color)c1, (Color)c2);
                 while(!game.Ended) {
                     try {
                         Screen.PrintGame(game);
