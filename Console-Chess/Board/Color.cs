@@ -3,10 +3,8 @@
         Red,
         Green,
         Blue,
-        Black,
         White,
         Yellow,
-        Orange,
         Magenta,
         Cyan
     }

@@ -31,7 +31,7 @@ namespace Console_Chess {
                     Console.WriteLine("]");
                     string? typed = Console.ReadLine();
                     bool parsed = Enum.TryParse(typeof(Board.Color), typed, out var result);
-                    if (parsed) {
+                    if (parsed && colors.Contains((Board.Color)result)) {
                         color = (Board.Color?)result;
                         colors.Remove((Board.Color)color);
                     }
