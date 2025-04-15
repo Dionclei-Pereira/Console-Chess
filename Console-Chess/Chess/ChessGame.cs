@@ -64,6 +64,19 @@ namespace Console_Chess.Chess {
             }
             Board.PutPiece(p, origin);
 
+            if (p is King && target.Y == origin.Y + 2) {
+                Position rookOrigin = new Position(origin.X, origin.Y + 3);
+                Position rookTarget = new Position(origin.X, origin.Y + 1);
+                Piece rook = Board.RemovePiece(rookTarget);
+                rook.DecreaseMovements();
+                Board.PutPiece(rook, origin);
+            } else if (p is King && target.Y == origin.Y - 2) {
+                Position rookOrigin = new Position(origin.X, origin.Y - 4);
+                Position rookTarget = new Position(origin.X, origin.Y - 1);
+                Piece rook = Board.RemovePiece(rookTarget);
+                rook.DecreaseMovements();
+                Board.PutPiece(rook, origin);
+            }
         }
 
         public Piece Move(Position origin, Position target) {
@@ -76,6 +89,21 @@ namespace Console_Chess.Chess {
 
             movingPiece.IncreaseMovements();
             Board.PutPiece(movingPiece, target);
+
+            if (movingPiece is King && target.Y == origin.Y + 2) {
+                Position rookOrigin = new Position(origin.X, origin.Y + 3);
+                Position rookTarget = new Position(origin.X, origin.Y + 1);
+                Piece rook = Board.RemovePiece(rookOrigin);
+                rook.IncreaseMovements();
+                Board.PutPiece(rook, rookTarget);
+            } else if (movingPiece is King && target.Y == origin.Y - 2) {
+                Position rookOrigin = new Position(origin.X, origin.Y - 4);
+                Position rookTarget = new Position(origin.X, origin.Y -1);
+                Piece rook = Board.RemovePiece(rookOrigin);
+                rook.IncreaseMovements();
+                Board.PutPiece(rook, rookTarget);
+            }
+
             return targetPiece;
         }
 
@@ -166,8 +194,8 @@ namespace Console_Chess.Chess {
             PutNewPiece(new ChessPosition('h', 8), new Rook(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('h', 1), new Rook(Board, PlayerOne));
 
-            PutNewPiece(new ChessPosition('e', 1), new King(Board, PlayerOne));
-            PutNewPiece(new ChessPosition('e', 8), new King(Board, PlayerTwo));
+            PutNewPiece(new ChessPosition('e', 1), new King(Board, PlayerOne, this));
+            PutNewPiece(new ChessPosition('e', 8), new King(Board, PlayerTwo, this));
 
             PutNewPiece(new ChessPosition('c', 1), new Bishop(Board, PlayerOne));
             PutNewPiece(new ChessPosition('c', 8), new Bishop(Board, PlayerTwo));
