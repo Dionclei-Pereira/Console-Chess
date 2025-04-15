@@ -171,6 +171,10 @@ namespace Console_Chess.Chess {
             PutNewPiece(new ChessPosition('c', 8), new Bishop(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('f', 1), new Bishop(Board, PlayerOne));
             PutNewPiece(new ChessPosition('f', 8), new Bishop(Board, PlayerTwo));
+            PutNewPiece(new ChessPosition('b', 1), new Knight(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('b', 8), new Knight(Board, PlayerTwo));
+            PutNewPiece(new ChessPosition('g', 1), new Knight(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('g', 8), new Knight(Board, PlayerTwo));
         }
     }
 }

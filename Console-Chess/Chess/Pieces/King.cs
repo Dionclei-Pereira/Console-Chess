@@ -11,42 +11,42 @@ namespace Console_Chess.Chess.Pieces {
             
             pos.SetPos(Position.X - 1, Position.Y);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X - 1, Position.Y + 1);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X, Position.Y + 1);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X + 1, Position.Y + 1);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X + 1, Position.Y);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X + 1, Position.Y - 1);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X - 1, Position.Y - 1);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             pos.SetPos(Position.X, Position.Y - 1);
             if (Board.PositionIsValid(pos)) {
-                m[pos.X, pos.Y] = canMove(pos);
+                m[pos.X, pos.Y] = CanMove(pos);
             }
 
             return m;

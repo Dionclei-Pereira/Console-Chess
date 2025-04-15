@@ -10,7 +10,7 @@ namespace Console_Chess.Chess.Pieces {
             Position pos = new Position(0, 0);
 
             pos.SetPos(Position.X - 1, Position.Y - 1);
-            while (Board.PositionIsValid(pos) && canMove(pos)) {
+            while (Board.PositionIsValid(pos) && CanMove(pos)) {
                 m[pos.X, pos.Y] = true;
                 if (Board.GetPiece(pos) != null && Board.GetPiece(pos).Color != this.Color) {
                     break;
@@ -20,7 +20,7 @@ namespace Console_Chess.Chess.Pieces {
             }
 
             pos.SetPos(Position.X + 1, Position.Y - 1);
-            while (Board.PositionIsValid(pos) && canMove(pos)) {
+            while (Board.PositionIsValid(pos) && CanMove(pos)) {
                 m[pos.X, pos.Y] = true;
                 if (Board.GetPiece(pos) != null && Board.GetPiece(pos).Color != this.Color) {
                     break;
@@ -30,7 +30,7 @@ namespace Console_Chess.Chess.Pieces {
             }
 
             pos.SetPos(Position.X - 1, Position.Y + 1);
-            while (Board.PositionIsValid(pos) && canMove(pos)) {
+            while (Board.PositionIsValid(pos) && CanMove(pos)) {
                 m[pos.X, pos.Y] = true;
                 if (Board.GetPiece(pos) != null && Board.GetPiece(pos).Color != this.Color) {
                     break;
@@ -39,7 +39,7 @@ namespace Console_Chess.Chess.Pieces {
                 pos.X = pos.X - 1;
             }
             pos.SetPos(Position.X + 1, Position.Y + 1);
-            while (Board.PositionIsValid(pos) && canMove(pos)) {
+            while (Board.PositionIsValid(pos) && CanMove(pos)) {
                 m[pos.X, pos.Y] = true;
                 if (Board.GetPiece(pos) != null && Board.GetPiece(pos).Color != this.Color) {
                     break;
