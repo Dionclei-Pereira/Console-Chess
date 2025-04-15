@@ -163,20 +163,41 @@ namespace Console_Chess.Chess {
         private void PutPieces() {
             PutNewPiece(new ChessPosition('a', 8), new Rook(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('a', 1), new Rook(Board, PlayerOne));
-            PutNewPiece(new ChessPosition('e', 1), new King(Board, PlayerOne));
-            PutNewPiece(new ChessPosition('e', 8), new King(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('h', 8), new Rook(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('h', 1), new Rook(Board, PlayerOne));
+
+            PutNewPiece(new ChessPosition('e', 1), new King(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('e', 8), new King(Board, PlayerTwo));
+
             PutNewPiece(new ChessPosition('c', 1), new Bishop(Board, PlayerOne));
             PutNewPiece(new ChessPosition('c', 8), new Bishop(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('f', 1), new Bishop(Board, PlayerOne));
             PutNewPiece(new ChessPosition('f', 8), new Bishop(Board, PlayerTwo));
+
             PutNewPiece(new ChessPosition('b', 1), new Knight(Board, PlayerOne));
             PutNewPiece(new ChessPosition('b', 8), new Knight(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('g', 1), new Knight(Board, PlayerOne));
             PutNewPiece(new ChessPosition('g', 8), new Knight(Board, PlayerTwo));
+
             PutNewPiece(new ChessPosition('d', 1), new Queen(Board, PlayerOne));
             PutNewPiece(new ChessPosition('d', 8), new Queen(Board, PlayerTwo));
+
+            PutNewPiece(new ChessPosition('a', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('a', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('b', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('b', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('c', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('c', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('d', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('d', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('e', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('e', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('f', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('f', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('g', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('g', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('h', 2), new Pawn(Board, PlayerOne, PlayerOne));
+            PutNewPiece(new ChessPosition('h', 7), new Pawn(Board, PlayerTwo, PlayerOne));
 
         }
     }
