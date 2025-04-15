@@ -175,6 +175,9 @@ namespace Console_Chess.Chess {
             PutNewPiece(new ChessPosition('b', 8), new Knight(Board, PlayerTwo));
             PutNewPiece(new ChessPosition('g', 1), new Knight(Board, PlayerOne));
             PutNewPiece(new ChessPosition('g', 8), new Knight(Board, PlayerTwo));
+            PutNewPiece(new ChessPosition('d', 1), new Queen(Board, PlayerOne));
+            PutNewPiece(new ChessPosition('d', 8), new Queen(Board, PlayerTwo));
+
         }
     }
 }
