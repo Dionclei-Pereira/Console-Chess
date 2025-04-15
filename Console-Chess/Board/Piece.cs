@@ -13,6 +13,11 @@ namespace Console_Chess.Board {
             MovementsAmount = 0;
         }
 
+        public bool canMove(Position pos) {
+            Piece p = Board.GetPiece(pos);
+            return p == null || Color != p.Color;
+        }
+
         public bool CanMoveTo(Position pos) {
             return GetMoves()[pos.X, pos.Y];
         }

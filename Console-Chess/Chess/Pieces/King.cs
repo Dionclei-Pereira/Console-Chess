@@ -5,11 +5,6 @@ namespace Console_Chess.Chess.Pieces {
         public King(GameBoard board, Color color) : base(board, color) {
         }
 
-        private bool canMove(Position pos) {
-            Piece p = Board.GetPiece(pos);
-            return p == null || Color != p.Color;
-        }
-
         public override bool[,] GetMoves() {
             bool[,] m = new bool[Board.X, Board.Y];
             Position pos = new Position(0, 0);
