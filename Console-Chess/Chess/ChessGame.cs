@@ -111,6 +111,36 @@ namespace Console_Chess.Chess {
             movingPiece.IncreaseMovements();
             Board.PutPiece(movingPiece, target);
 
+            if (movingPiece is Pawn) {
+                if ((movingPiece.Color == PlayerOne && target.X == 0) || (movingPiece.Color == PlayerTwo && target.X == 7)) {
+                    char promotionPieceChar = '-';
+                    Piece promotionPiece = null;
+                    while (!"RQBN".Contains(promotionPieceChar)) {
+                        Console.Clear();
+                        Console.WriteLine("Choose a piece to promote: N - Q - B - R");
+                        promotionPieceChar = Console.ReadLine().ElementAt(0);
+                    }
+                    switch (promotionPieceChar) {
+                        case 'R':
+                            promotionPiece = new Rook(Board, movingPiece.Color);
+                            break;
+                        case 'Q':
+                            promotionPiece = new Queen(Board, movingPiece.Color);
+                            break;
+                        case 'B':
+                            promotionPiece = new Bishop(Board, movingPiece.Color);
+                            break;
+                        case 'N':
+                            promotionPiece = new Knight(Board, movingPiece.Color);
+                            break;
+                    }
+                    movingPiece = Board.RemovePiece(target);
+                    Pieces.Remove(movingPiece);
+                    Board.PutPiece(promotionPiece, target);
+                    Pieces.Add(promotionPiece);
+                }
+            }
+
             if (movingPiece is King && target.Y == origin.Y + 2) {
                 Position rookOrigin = new Position(origin.X, origin.Y + 3);
                 Position rookTarget = new Position(origin.X, origin.Y + 1);
@@ -132,6 +162,7 @@ namespace Console_Chess.Chess {
                     Captured.Add(targetPiece);
                 }
             }
+
             return targetPiece;
         }
 

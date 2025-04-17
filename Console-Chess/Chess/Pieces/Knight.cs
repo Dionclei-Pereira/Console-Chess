@@ -55,7 +55,7 @@ namespace Console_Chess.Chess.Pieces {
         }
 
         public override string ToString() {
-            return "K";
+            return "N";
         }
     }
 }
