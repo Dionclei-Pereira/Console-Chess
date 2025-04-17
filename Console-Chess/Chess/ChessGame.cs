@@ -37,6 +37,18 @@ namespace Console_Chess.Chess {
             Ended = false;
         }
 
+        public virtual void TestingChecks() {
+            if (IsInCheck(Playing)) {
+                IsGameInCheck = true;
+            } else {
+                IsGameInCheck = false;
+            }
+
+            if (TestCheckMate(Playing)) {
+                Ended = true;
+            }
+        }
+
         public void ExecuteMovement(Position origin, Position target) {
             Piece p = Move(origin, target);
 
@@ -48,15 +60,7 @@ namespace Console_Chess.Chess {
             Turn++;
             Playing = Playing == PlayerOne ? PlayerTwo : PlayerOne;
 
-            if (IsInCheck(Playing)) {
-                IsGameInCheck = true;
-            } else {
-                IsGameInCheck = false;
-            }
-
-            if (TestCheckMate(Playing)) {
-                Ended = true;
-            }
+            TestingChecks();
 
             Piece piece = Board.GetPiece(target);
             if (piece is Pawn && (target.X == origin.X - 2) || (target.X == origin.X + 2)) {
@@ -118,7 +122,10 @@ namespace Console_Chess.Chess {
                     while (!"RQBN".Contains(promotionPieceChar)) {
                         Console.Clear();
                         Console.WriteLine("Choose a piece to promote: N - Q - B - R");
-                        promotionPieceChar = Console.ReadLine().ElementAt(0);
+                        string str = Console.ReadLine();
+                        if (str != null) {
+                            promotionPieceChar = str[0];
+                        }
                     }
                     switch (promotionPieceChar) {
                         case 'R':

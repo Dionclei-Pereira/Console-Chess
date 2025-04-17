@@ -8,7 +8,7 @@ namespace Console_Chess {
 
             try {
                 Screen.GetColors(out Color? c1, out Color? c2);
-                ChessGame game = new ChessGame((Color)c1, (Color)c2);
+                Screen.GetGame(c1, c2, out ChessGame game);
                 while(!game.Ended) {
                     try {
                         Screen.PrintGame(game);

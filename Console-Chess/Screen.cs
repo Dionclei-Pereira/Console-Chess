@@ -56,8 +56,17 @@ namespace Console_Chess {
                     Console.WriteLine("Check!");
                 }
             } else {
-                Console.WriteLine("CHECK MATE");
-                Console.WriteLine("WINNER: " + game.GetEnemyColor(game.Playing));
+                if (game is ThreeCheck) {
+                    Console.WriteLine("WINNER: " + game.GetEnemyColor(game.Playing));
+                } else {
+                    Console.WriteLine("CHECK MATE");
+                    Console.WriteLine("WINNER: " + game.GetEnemyColor(game.Playing));
+                }
+            }
+            if (game is ThreeCheck) {
+                ThreeCheck threeCheck = (ThreeCheck) game;
+                Console.WriteLine("Player One Checks: " + threeCheck.PlayerOneChecks);
+                Console.WriteLine("Player Two Checks: " + threeCheck.PlayerTwoChecks);
             }
             Console.WriteLine();
         }
@@ -127,5 +136,24 @@ namespace Console_Chess {
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        public static void GetGame(Board.Color? c1, Board.Color? c2, out ChessGame game) {
+            char mode = '-';
+            while(!"NT".Contains(mode)) {
+                Console.Clear();
+                Console.WriteLine("Enter a game mode: Normal(N) - Three Check(T)");
+                string str = Console.ReadLine();
+                if (str != null) {
+                    mode = str[0];
+                }
+            }
+            switch (mode) {
+                case 'T':
+                    game = new ThreeCheck((Board.Color)c1, (Board.Color)c2);
+                    break;
+                default:
+                    game = new ChessGame((Board.Color)c1, (Board.Color)c2);
+                    break;
+            }
+        }
     }
 }
