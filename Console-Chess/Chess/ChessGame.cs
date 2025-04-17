@@ -4,6 +4,7 @@ using Console_Chess.Chess.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,9 @@ namespace Console_Chess.Chess {
         public bool Ended { get; protected set; }
         private HashSet<Piece> Pieces { get; set; }
         private HashSet<Piece> Captured { get; set; }
-        public bool IsGameInCheck { get; set; }
+        public bool IsGameInCheck { get; protected set; }
+
+        public Piece EnPassantVulnerable { get; set; }
 
 
         public ChessGame(Color colorOne, Color colorTwo) {
@@ -29,6 +32,7 @@ namespace Console_Chess.Chess {
             PlayerTwo = colorTwo;
             Pieces = new HashSet<Piece>();
             Captured = new HashSet<Piece>();
+            EnPassantVulnerable = null;
             PutPieces();
             Ended = false;
         }
@@ -53,6 +57,14 @@ namespace Console_Chess.Chess {
             if (TestCheckMate(Playing)) {
                 Ended = true;
             }
+
+            Piece piece = Board.GetPiece(target);
+            if (piece is Pawn && (target.X == origin.X - 2) || (target.X == origin.X + 2)) {
+                EnPassantVulnerable = piece;
+            } else {
+                EnPassantVulnerable = null;
+            }
+
         }
 
         public void Unmove(Position origin, Position target, Piece piece) {
@@ -76,6 +88,15 @@ namespace Console_Chess.Chess {
                 Piece rook = Board.RemovePiece(rookTarget);
                 rook.DecreaseMovements();
                 Board.PutPiece(rook, origin);
+            }
+            if (p is Pawn) {
+                if (origin.Y != target.Y && piece == EnPassantVulnerable) {
+                    int pawnRow = (p.Color == PlayerOne) ? target.X + 1 : target.X - 1;
+                    Position posP = new Position(pawnRow, target.Y);
+                    Piece pawn = Board.RemovePiece(target);
+                    Board.PutPiece(pawn, posP);
+                    Captured.Remove(piece);
+                }
             }
         }
 
@@ -104,6 +125,13 @@ namespace Console_Chess.Chess {
                 Board.PutPiece(rook, rookTarget);
             }
 
+            if (movingPiece is Pawn) {
+                if (origin.Y != target.Y && targetPiece == null) {
+                    Position pawnPosition = new Position(origin.X, target.Y);
+                    targetPiece = Board.RemovePiece(pawnPosition);
+                    Captured.Add(targetPiece);
+                }
+            }
             return targetPiece;
         }
 
@@ -210,22 +238,22 @@ namespace Console_Chess.Chess {
             PutNewPiece(new ChessPosition('d', 1), new Queen(Board, PlayerOne));
             PutNewPiece(new ChessPosition('d', 8), new Queen(Board, PlayerTwo));
 
-            PutNewPiece(new ChessPosition('a', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('a', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('b', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('b', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('c', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('c', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('d', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('d', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('e', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('e', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('f', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('f', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('g', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('g', 7), new Pawn(Board, PlayerTwo, PlayerOne));
-            PutNewPiece(new ChessPosition('h', 2), new Pawn(Board, PlayerOne, PlayerOne));
-            PutNewPiece(new ChessPosition('h', 7), new Pawn(Board, PlayerTwo, PlayerOne));
+            PutNewPiece(new ChessPosition('a', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('a', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('b', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('b', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('c', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('c', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('d', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('d', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('e', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('e', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('f', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('f', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('g', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('g', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
+            PutNewPiece(new ChessPosition('h', 2), new Pawn(Board, PlayerOne, PlayerOne, this));
+            PutNewPiece(new ChessPosition('h', 7), new Pawn(Board, PlayerTwo, PlayerOne, this));
 
         }
     }
