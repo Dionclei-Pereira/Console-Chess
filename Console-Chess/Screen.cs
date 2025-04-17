@@ -140,9 +140,9 @@ namespace Console_Chess {
             char mode = '-';
             while(!"NT".Contains(mode)) {
                 Console.Clear();
-                Console.WriteLine("Enter a game mode: Normal(N) - Three Check(T)");
+                Console.WriteLine("Enter a game mode: Normal(N) - Three-Check(T)");
                 string str = Console.ReadLine();
-                if (str != null) {
+                if (str.Length > 0) {
                     mode = str[0];
                 }
             }

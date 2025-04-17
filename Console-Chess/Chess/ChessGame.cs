@@ -122,8 +122,8 @@ namespace Console_Chess.Chess {
                     while (!"RQBN".Contains(promotionPieceChar)) {
                         Console.Clear();
                         Console.WriteLine("Choose a piece to promote: N - Q - B - R");
-                        string str = Console.ReadLine();
-                        if (str != null) {
+                        string? str = Console.ReadLine();
+                        if (str.Length > 0) {
                             promotionPieceChar = str[0];
                         }
                     }
